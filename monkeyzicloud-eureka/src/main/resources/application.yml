@@ -1,0 +1,9 @@
+server:
+  port: 8761
+spring:
+  application:
+    name: monkeyzicloud-eureka
+  security:
+    user:
+      name: root
+      password: guoguo
