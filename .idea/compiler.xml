@@ -18,6 +18,7 @@
         <module name="monkeyzicloud-provider-msgcloud-api" />
         <module name="monkeyzicloud-provider-ucloud" />
         <module name="monkeyzicloud-provider-ucloud-api" />
+        <module name="monkeyzicloud-security-feign" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

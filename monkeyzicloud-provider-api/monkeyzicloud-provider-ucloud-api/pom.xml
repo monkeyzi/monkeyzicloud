@@ -2,14 +2,38 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <artifactId>monkeyzicloud-provider-ucloud-api</artifactId>
+    <version>1.0</version>
+    <packaging>jar</packaging>
+
+
     <parent>
         <artifactId>monkeyzicloud-provider-api</artifactId>
-        <groupId>com.gaoyg.monkeyzicloud</groupId>
+        <groupId>com.gaoyg.monkeyzicloud.provider.api</groupId>
         <version>1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>monkeyzicloud-provider-ucloud-api</artifactId>
 
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.gaoyg.monkeyzicloud.common</groupId>
+            <artifactId>monkeyzicloud-common-util</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>5.1.3</version>
+        </dependency>
+        
+    </dependencies>
 </project>

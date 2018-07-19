@@ -8,14 +8,24 @@
         <version>1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
+    <groupId>com.gaoyg.monkeyzicloud.provider.api</groupId>
     <artifactId>monkeyzicloud-provider-api</artifactId>
     <packaging>pom</packaging>
     <modules>
         <module>monkeyzicloud-provider-ucloud-api</module>
         <module>monkeyzicloud-provider-msgcloud-api</module>
-        <module>monkeyzicloud-provider-msgcloud-api</module>
     </modules>
-
+    <dependencies>
+        <dependency>
+            <groupId>com.gaoyg.monkeyzicloud.common</groupId>
+            <artifactId>monkeyzicloud-common-base</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.gaoyg.monkeyzicloud.common</groupId>
+            <artifactId>monkeyzicloud-security-feign</artifactId>
+            <version>1.0</version>
+        </dependency>
+    </dependencies>
 
 </project>
