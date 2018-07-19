@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/monkeyzicloud-provider/monkeyzicloud-provider.iml" filepath="$PROJECT_DIR$/monkeyzicloud-provider/monkeyzicloud-provider.iml" />
       <module fileurl="file://$PROJECT_DIR$/monkeyzicloud-provider-api/monkeyzicloud-provider-msgcloud-api/monkeyzicloud-provider-msgcloud-api.iml" filepath="$PROJECT_DIR$/monkeyzicloud-provider-api/monkeyzicloud-provider-msgcloud-api/monkeyzicloud-provider-msgcloud-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/monkeyzicloud-common/monkeyzicloud-security-feign/monkeyzicloud-security-feign.iml" filepath="$PROJECT_DIR$/monkeyzicloud-common/monkeyzicloud-security-feign/monkeyzicloud-security-feign.iml" />
     </modules>
   </component>
 </project>
