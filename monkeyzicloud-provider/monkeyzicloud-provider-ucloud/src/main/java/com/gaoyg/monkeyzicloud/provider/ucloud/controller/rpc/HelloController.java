@@ -1,4 +1,4 @@
-package com.gaoyg.monkeyzicloud.provider.ucloud.controller;
+package com.gaoyg.monkeyzicloud.provider.ucloud.controller.rpc;
 
 import com.gaoyg.monkeyzicloud.provider.ucloud.service.UcloudUserTokenFeignApi;
 import io.swagger.annotations.Api;

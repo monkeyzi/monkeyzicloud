@@ -5,4 +5,4 @@ ${AnsiColor.BRIGHT_YELLOW}
 |  Y Y  (  <_> )   |  \    <\  ___/\___  | /    /|  \  \___|  |_(  <_> )  |  / /_/ |
 |__|_|  /\____/|___|  /__|_ \\___  > ____|/_____ \__|\___  >____/\____/|____/\____ |
       \/            \/     \/    \/\/           \/       \/                       \/
-                Powered by monkeyzi gaoyg    ${spring-boot.version}
+             Powered by monkeyzi gaoyg    ${spring-boot.version}
