@@ -14,5 +14,5 @@ import org.springframework.web.bind.annotation.PostMapping;
 public interface UcloudUserTokenFeignApi {
 
     @PostMapping(value = "/api/ucloud/getToken")
-    String getToken();
+    String getToken(String name);
 }

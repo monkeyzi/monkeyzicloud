@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    active: dev
   cloud:
     config:
        server:
@@ -7,8 +9,8 @@ spring:
            username:
            password:
            search-paths: /*
-           #default-label: ${spring.profiles.active}
-           #basedir: /data/config/paascloud-config-repo
+           default-label: dev
+           basedir: /data/config/monkeyzicloud-config
 
 eureka:
   client:

@@ -1,0 +1,11 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "com.gaoyg.monkeyzicloud.provider.ucloud.config.MonkeyzicloudConfig",
+      "name": "monkeyzicloud",
+      "type": "com.gaoyg.monkeyzicloud.provider.ucloud.config.MonkeyzicloudConfig"
+    }
+  ],
+  "properties": []
+}
