@@ -23,7 +23,7 @@ public class SwaggerConfiguration   {
 	@Bean
 	public Docket createRestApi() {
 		return new Docket(DocumentationType.SWAGGER_2)
-				.groupName("接口文档")
+				.groupName("monkeyzicloud-api")
 				.apiInfo(apiInfo())
 				.select()
 				.apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))

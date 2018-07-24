@@ -9,8 +9,9 @@ spring:
            username:
            password:
            search-paths: /*
-           default-label: dev
+           default-label: master
            basedir: /data/config/monkeyzicloud-config
+         bootstrap: true
 
 eureka:
   client:
@@ -18,3 +19,4 @@ eureka:
       defaultZone: http://root:guoguo@localhost:8761/eureka/
   instance:
       instanceId: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+      prefer-ip-address: true

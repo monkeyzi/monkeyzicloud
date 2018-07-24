@@ -1,7 +1,27 @@
+server:
+   port: 8081
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: monkeyzicloud-provider-ucloud
+  cloud:
+    config:
+      failFast: true
+      label: master
+      profile: ${spring.profiles.active}
+      discovery:
+        enabled: true
+        service-id: monkeyzicloud-discovery
+
 eureka:
   client:
     serviceUrl:
       defaultZone: http://root:guoguo@localhost:8761/eureka/
   instance:
       instanceId: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+      prefer-ip-address: true
+      lease-renewal-interval-in-seconds: 1
+      lease-expiration-duration-in-seconds: 2
 

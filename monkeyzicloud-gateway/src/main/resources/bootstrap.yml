@@ -1,7 +1,30 @@
+spring:
+  cloud:
+    config:
+      failFast: true
+      label: master
+      profile: ${spring.profiles.active}
+      discovery:
+        enabled: true
+        serviceId: monkeyzicloud-discovery
+
 eureka:
   client:
     serviceUrl:
       defaultZone: http://root:guoguo@localhost:8761/eureka/
   instance:
       instanceId: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+      prefer-ip-address: true
 
+swagger:
+  butler:
+    api-docs-path: v2/api-docs
+    swagger-version: 2.0
+    auto-generate-from-zuul-routes: true
+    # 指定要生成的范围
+    generate-routes: ucloud-route
+
+
+ribbon:
+  ReadTimeout: 3000
+  ConnectTimeout: 3000
