@@ -1,7 +1,12 @@
 package com.gaoyg.monkeyzicloud.provider.ucloud.service;
 
+import com.gaoyg.monkeyzicloud.provider.ucloud.dto.UserInfoDto;
+import com.gaoyg.monkeyzicloud.provider.ucloud.service.hystrix.UcloudTokenFeignHystrix;
+import com.gaoyg.monkeyzicloud.util.response.R;
+import io.swagger.annotations.ApiParam;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * @author: 高yg
@@ -10,9 +15,13 @@ import org.springframework.web.bind.annotation.PostMapping;
  * @blog http://www.monkeyzi.xin
  * @description:
  */
-@FeignClient(value = "monkeyzicloud-provider-ucloud")
+@FeignClient(value = "monkeyzicloud-provider-ucloud",fallback = UcloudTokenFeignHystrix.class)
 public interface UcloudUserTokenFeignApi {
 
-    @PostMapping(value = "/api/ucloud/getToken")
-    String getToken(String name);
+    @PostMapping(value = "/ucloud/token/updateTokenOffLine")
+    R updateTokenOffLine();
+
+    @PostMapping(value = "/ucloud/token/getToken")
+    R getToken(@ApiParam(name = "getToken",value = "获取token") @RequestBody UserInfoDto userInfoDto);
+
 }
