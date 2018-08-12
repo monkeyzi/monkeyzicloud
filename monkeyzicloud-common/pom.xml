@@ -18,6 +18,7 @@
         <module>monkeyzicloud-common-config</module>
         <module>monkeyzicloud-common-zk</module>
         <module>monkeyzicloud-security-feign</module>
+        <module>monkeyzicloud-security-core</module>
     </modules>
     <dependencies>
         <dependency>

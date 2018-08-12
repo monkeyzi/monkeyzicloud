@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
  * @blog http://www.monkeyzi.xin
  * @description:
  */
-@Component
+//@Component
 @Slf4j
 public class HeadFilter extends ZuulFilter {
 

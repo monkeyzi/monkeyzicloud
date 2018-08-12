@@ -12,6 +12,11 @@
       "sourceType": "com.gaoyg.monkeyzicloud.config.properties.MonkeyziCloudProperties",
       "name": "monkeyzicloud.swagger-properties",
       "type": "com.gaoyg.monkeyzicloud.config.properties.SwaggerProperties"
+    },
+    {
+      "sourceType": "com.gaoyg.monkeyzicloud.config.properties.MonkeyziCloudProperties",
+      "name": "monkeyzicloud.task",
+      "type": "com.gaoyg.monkeyzicloud.config.properties.UcloudAsyncTaskProperties"
     }
   ]
 }

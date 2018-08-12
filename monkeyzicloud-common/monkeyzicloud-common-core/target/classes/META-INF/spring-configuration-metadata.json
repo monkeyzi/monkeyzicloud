@@ -1,0 +1,11 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "com.gaoyg.monkeyzicloud.commom.core.config.MonkeyziRedisConfiguration",
+      "name": "",
+      "type": "com.gaoyg.monkeyzicloud.commom.core.config.MonkeyziRedisConfiguration"
+    }
+  ],
+  "properties": []
+}

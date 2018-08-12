@@ -64,7 +64,7 @@ public class MonkeyzicloudFallbackProvider implements FallbackProvider {
             public InputStream getBody()  {
                 String result= "{\n" +
                         "\"code\": 500,\n" +
-                        "\"message\": \"微服务故障, 请稍后再试\"\n" +
+                        "\"message\": \"微服务故障, 请稍后再试\",\n" +
                         "\"success\": false,\n" +
                         "}";
                 return new ByteArrayInputStream(result.getBytes());

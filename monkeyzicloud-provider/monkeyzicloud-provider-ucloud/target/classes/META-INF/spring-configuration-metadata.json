@@ -5,6 +5,11 @@
       "sourceType": "com.gaoyg.monkeyzicloud.provider.ucloud.config.MonkeyzicloudConfig",
       "name": "monkeyzicloud",
       "type": "com.gaoyg.monkeyzicloud.provider.ucloud.config.MonkeyzicloudConfig"
+    },
+    {
+      "sourceType": "com.gaoyg.monkeyzicloud.provider.ucloud.config.MonkeyzicloudSecurityConfig",
+      "name": "monkeyzicloud",
+      "type": "com.gaoyg.monkeyzicloud.provider.ucloud.config.MonkeyzicloudSecurityConfig"
     }
   ],
   "properties": []

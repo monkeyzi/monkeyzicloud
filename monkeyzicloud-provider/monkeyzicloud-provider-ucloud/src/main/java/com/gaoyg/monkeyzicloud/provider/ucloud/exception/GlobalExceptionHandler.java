@@ -45,7 +45,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public R businessException(BusinessException e) {
-        log.error("gateway business exception");
+        log.error("business exception");
         return R.error(e.getCode(), e.getMessage());
     }
 

@@ -13,8 +13,10 @@ import lombok.Setter;
  */
 @Getter
 public enum  ErrorCodeEnum {
+    UCLOUD00001038(10011038, "登录状态失效,请重新登录"),
     UCLOUD00001039(10011039, "参数错误"),
-    UCLOUD00001040(10011040, "解析header失败");
+    UCLOUD00001040(10011040, "解析header失败"),
+    UCLOUD10011039(10011039, "验证token失败");
     private String msg;
     private Integer code;
     ErrorCodeEnum(Integer code,String msg){

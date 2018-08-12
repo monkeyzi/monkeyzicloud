@@ -18,4 +18,5 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix =GlobalConstant.MONKEYZI_PREFIX)
 public class MonkeyziCloudProperties {
     private SwaggerProperties swaggerProperties=new SwaggerProperties();
+    private UcloudAsyncTaskProperties task=new UcloudAsyncTaskProperties();
 }

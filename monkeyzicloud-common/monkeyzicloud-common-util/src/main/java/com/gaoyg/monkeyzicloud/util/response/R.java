@@ -49,7 +49,7 @@ public class R<T>  implements Serializable {
      */
 
     public boolean isSuccess(){
-       return this.code==ResponseCode.SUCCESS.getCode();
+       return this.code.equals(ResponseCode.SUCCESS.getCode());
     }
 
     public static <T> R<T> ok(){
