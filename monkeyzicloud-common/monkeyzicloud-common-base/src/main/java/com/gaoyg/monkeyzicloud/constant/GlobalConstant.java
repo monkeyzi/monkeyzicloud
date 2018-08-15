@@ -34,12 +34,29 @@ public interface GlobalConstant {
            */
           public static final String COMMA = ",";
      }
-     final  class  sys{
-          public sys(){
+     final  class  Sys{
+          public Sys(){
           }
           /**
            * 全局用户名
            */
           public static final String TOKEN_AUTH_USER = "CURRENT_AUTH_USER";
+          /**
+           * 超级管理员用户编号
+           */
+          public static final Long SUPER_MANAGE_USER_ID=1L;
+          /**
+           * 超级管理员系统登录名
+           */
+          public static final String  SUPER_MANAGE_LOGIN_NAME="monkeyadmin";
+          /**
+           * 超级管理员的角色编号
+           */
+          public static final Long SUER_MANAGE_ROLE_ID=1L;
+          /**
+           * 超级管理员的组织编号
+           */
+          public static final Long SUPER_MANAGE_GROUP_ID=1L;
+
      }
 }

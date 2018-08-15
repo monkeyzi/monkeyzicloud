@@ -22,7 +22,7 @@ public class BaseController {
      * @return
      */
   public LoginAuthDto getLoginAuthDto(){
-     LoginAuthDto loginAuthDto= (LoginAuthDto) ThreadLocalMap.get(GlobalConstant.sys.TOKEN_AUTH_USER);
+     LoginAuthDto loginAuthDto= (LoginAuthDto) ThreadLocalMap.get(GlobalConstant.Sys.TOKEN_AUTH_USER);
      log.info("当前的登录人信息，{}",loginAuthDto);
      if (PublicUtil.isEmpty(loginAuthDto)){
          throw  new BusinessException(ErrorCodeEnum.UCLOUD00001038);

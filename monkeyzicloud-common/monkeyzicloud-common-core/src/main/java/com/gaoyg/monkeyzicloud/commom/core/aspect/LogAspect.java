@@ -96,7 +96,7 @@ public class LogAspect {
             operationLogDto.setOs(os);
             operationLogDto.setBrowser(browser);
             operationLogDto.setRequestUrl(requestURI);
-
+            operationLogDto.setDescription("");
             operationLogDto.setGroupId(loginUser.getGroupId());
             operationLogDto.setGroupName(loginUser.getGroupName());
             operationLogDto.setCreatedTime(new Date());
@@ -131,7 +131,7 @@ public class LogAspect {
      */
     private void setResponseData(OperationLogDto requestLog, Object result) {
         try {
-            requestLog.setResponseData(String.valueOf(result));
+            requestLog.setResponseData(String.valueOf(JacksonUtil.toJson(result)));
         } catch (Exception e) {
             log.error("获取响应数据,出现错误={}", e.getMessage(), e);
         }

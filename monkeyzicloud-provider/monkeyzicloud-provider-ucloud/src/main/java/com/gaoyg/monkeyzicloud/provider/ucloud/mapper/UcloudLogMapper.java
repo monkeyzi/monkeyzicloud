@@ -2,6 +2,7 @@ package com.gaoyg.monkeyzicloud.provider.ucloud.mapper;
 
 import com.gaoyg.monkeyzicloud.commom.core.mybatis.MyMapper;
 import com.gaoyg.monkeyzicloud.provider.ucloud.model.domain.UcloudLog;
+import com.gaoyg.monkeyzicloud.provider.ucloud.model.dto.log.QueryLogDto;
 import com.gaoyg.monkeyzicloud.provider.ucloud.model.dto.log.UcloudLogDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -20,5 +21,5 @@ import java.util.List;
 @Mapper
 public interface UcloudLogMapper  extends MyMapper<UcloudLog> {
     List<UcloudLog> selectUserLogListByUserId(@Param("userId") Long userId);
-    List<UcloudLog> queryLogListWithPage(UcloudLogDto ucloudLogDto);
+    List<UcloudLog> queryLogListWithPage(QueryLogDto queryLogDto);
 }

@@ -4,6 +4,10 @@ import com.gaoyg.monkeyzicloud.commom.core.support.IBaseService;
 import com.gaoyg.monkeyzicloud.dto.LoginAuthDto;
 import com.gaoyg.monkeyzicloud.dto.OperationLogDto;
 import com.gaoyg.monkeyzicloud.provider.ucloud.model.domain.UcloudLog;
+import com.gaoyg.monkeyzicloud.provider.ucloud.model.dto.log.QueryLogDto;
+import com.github.pagehelper.PageInfo;
+
+import java.util.List;
 
 /**
  * @author: 高yg
@@ -13,6 +17,32 @@ import com.gaoyg.monkeyzicloud.provider.ucloud.model.domain.UcloudLog;
  * @description:
  */
 public interface UcloudLogService extends IBaseService<UcloudLog> {
+    /**
+     * save Login log
+     * @param ulog
+     * @param loginAuthDto
+     * @return
+     */
     int saveLog(UcloudLog ulog, LoginAuthDto loginAuthDto);
+
+    /**
+     * save operation Log
+     * @param operationLogDto
+     * @return
+     */
     Integer saveOperationLog(OperationLogDto operationLogDto);
+
+    /**
+     * qyeryLogList by page
+     * @param queryLogDto
+     * @return
+     */
+    PageInfo queryLogWithPage(QueryLogDto queryLogDto);
+
+    /**
+     * query userLogList By userId
+     * @param userId
+     * @return
+     */
+    List<UcloudLog> queryUserLogListByUserId(Long userId);
 }

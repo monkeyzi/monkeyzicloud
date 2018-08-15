@@ -18,6 +18,7 @@ import com.github.pagehelper.PageInfo;
 import com.netflix.discovery.converters.Auto;
 import eu.bitwalker.useragentutils.UserAgent;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -98,12 +99,29 @@ public class UcloudUserTokenServiceImpl extends BaseService<UcloudUserToken> imp
     }
     @Override
     public UserTokenDto getUserToken(String accessToken) {
-        return null;
+         UserTokenDto userTokenDto= (UserTokenDto) redisTemplate.opsForValue().get(RedisKeyUtil.getAccessTokenKey(accessToken));
+         if (userTokenDto==null){
+           UcloudUserToken userToken=new UcloudUserToken();
+           userToken.setAccessToken(accessToken);
+           userToken=ucloudUserTokenMapper.selectOne(userToken);
+           userTokenDto=new ModelMapper().map(userToken,UserTokenDto.class);
+         }
+         return userTokenDto;
     }
 
+    /**
+     * 更新token
+     * @param userTokenDto
+     * @param loginAuthDto
+     */
     @Override
     public void updateUcloudUserToken(UserTokenDto userTokenDto, LoginAuthDto loginAuthDto) {
-
+        UcloudUserToken userToken=new ModelMapper().map(userTokenDto,UcloudUserToken.class);
+        userToken.setUpdateInfo(loginAuthDto);
+        ucloudUserTokenMapper.updateByPrimaryKeySelective(userToken);
+        OAuth2ClientProperties[] clients=securityProperties.getOauth2().getClients();
+        int accessTokenValidateSeconds = clients[0].getAccessTokenValidateSeconds();
+        updateRedisUserToken(userToken.getAccessToken(),accessTokenValidateSeconds,userToken);
     }
 
     @Override
