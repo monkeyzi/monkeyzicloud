@@ -2,14 +2,14 @@
   "hints": [],
   "groups": [
     {
-      "sourceType": "com.gaoyg.monkeyzicloud.provider.ucloud.config.MonkeyzicloudConfig",
+      "sourceType": "com.gaoyg.monkeyzicloud.provider.config.MonkeyzicloudConfig",
       "name": "monkeyzicloud",
-      "type": "com.gaoyg.monkeyzicloud.provider.ucloud.config.MonkeyzicloudConfig"
+      "type": "com.gaoyg.monkeyzicloud.provider.config.MonkeyzicloudConfig"
     },
     {
-      "sourceType": "com.gaoyg.monkeyzicloud.provider.ucloud.config.MonkeyzicloudSecurityConfig",
+      "sourceType": "com.gaoyg.monkeyzicloud.provider.config.MonkeyzicloudSecurityConfig",
       "name": "monkeyzicloud",
-      "type": "com.gaoyg.monkeyzicloud.provider.ucloud.config.MonkeyzicloudSecurityConfig"
+      "type": "com.gaoyg.monkeyzicloud.provider.config.MonkeyzicloudSecurityConfig"
     }
   ],
   "properties": []
