@@ -61,4 +61,9 @@ public class BaseService<T> implements IBaseService<T> {
     public int insert(T record) {
         return mapper.insert(record);
     }
+
+    @Override
+    public int update(T entity) {
+        return mapper.updateByPrimaryKeySelective(entity);
+    }
 }

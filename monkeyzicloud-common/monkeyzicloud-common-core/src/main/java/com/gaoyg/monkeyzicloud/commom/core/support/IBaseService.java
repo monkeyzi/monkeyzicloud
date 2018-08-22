@@ -58,4 +58,12 @@ public interface IBaseService<T> {
      * @return
      */
     int insert(T record);
+    /**
+     * 根据主键更新属性不为null的值  @param entity the entity
+     *
+     * @param entity the entity
+     *
+     * @return the int
+     */
+    int update(T entity);
 }
