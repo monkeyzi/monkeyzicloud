@@ -4,6 +4,8 @@ import com.gaoyg.monkeyzicloud.enums.ErrorCodeEnum;
 import com.gaoyg.monkeyzicloud.exception.BusinessException;
 import com.gaoyg.monkeyzicloud.util.response.R;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
@@ -11,6 +13,7 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -25,7 +28,12 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 @RequestMapping( value = "/error")
 public class GlobalExceptionHandler {
-
+    @Resource
+    private TaskExecutor taskExecutor;
+    @Value("${spring.profiles.active}")
+    String profile;
+    @Value("${spring.application.name}")
+    String applicationName;
     /**
      * 参数异常处理
      * @param e
@@ -108,6 +116,9 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public R exception(Exception e) {
         log.info("{500 exception}",e);
+        taskExecutor.execute(() -> {
+            log.info("保存错误日志了");
+        });
         return R.error(500,"服务端异常");
     }
 }

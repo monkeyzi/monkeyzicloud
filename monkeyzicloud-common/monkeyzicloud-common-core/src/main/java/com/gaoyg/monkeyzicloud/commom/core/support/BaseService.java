@@ -71,4 +71,9 @@ public class BaseService<T> implements IBaseService<T> {
     public int save(T record) {
         return mapper.insertSelective(record);
     }
+
+    @Override
+    public int selectCountByExample(Object example) {
+        return mapper.selectCountByExample(example);
+    }
 }

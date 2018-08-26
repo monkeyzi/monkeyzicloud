@@ -73,4 +73,7 @@ public interface IBaseService<T> {
      * @return
      */
     int save(T record);
+
+
+    int selectCountByExample(Object example);
 }

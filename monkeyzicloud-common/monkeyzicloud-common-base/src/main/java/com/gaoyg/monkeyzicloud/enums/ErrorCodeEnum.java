@@ -27,6 +27,8 @@ public enum  ErrorCodeEnum {
     UCLOUD10012005(10012005, "密码不能为空"),
     UCLOUD10011026(10011026, "更新用户失败, userId=%"),
     UCLOUD10011025(10011025, "用户已存在, loginName=%"),
+    UCLOUD10011027(10011027, "姓名已存在, userName=%"),
+    UCLOUD10011028(10011028, "邮箱已存在, email=%"),
     UCLOUD10011001(10011001, "用户Id不能为空,userId=%"),
     UCLOUD10011023(10011023, "越权操作"),
     UCLOUD10011011(10011011, "用户不存在, userId=%s"),
