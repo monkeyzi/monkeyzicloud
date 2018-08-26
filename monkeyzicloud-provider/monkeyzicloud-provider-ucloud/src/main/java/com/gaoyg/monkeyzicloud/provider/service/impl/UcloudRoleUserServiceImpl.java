@@ -5,6 +5,7 @@ import com.gaoyg.monkeyzicloud.constant.GlobalConstant;
 import com.gaoyg.monkeyzicloud.enums.ErrorCodeEnum;
 import com.gaoyg.monkeyzicloud.provider.exception.UcloudBizException;
 import com.gaoyg.monkeyzicloud.provider.mapper.UcloudRoleUserMapper;
+import com.gaoyg.monkeyzicloud.provider.model.domain.UcloudRole;
 import com.gaoyg.monkeyzicloud.provider.model.domain.UcloudRoleUser;
 import com.gaoyg.monkeyzicloud.provider.service.UcloudRoleUserService;
 import com.gaoyg.monkeyzicloud.util.pubutils.PublicUtil;
@@ -71,5 +72,38 @@ public class UcloudRoleUserServiceImpl extends BaseService<UcloudRoleUser> imple
     @Transactional(readOnly = true,rollbackFor = Exception.class)
     public UcloudRoleUser getByUserIdAndRoleId(Long userId, Long roleId) {
         return ucloudRoleUserMapper.getByUserIdAndRoleId(userId,roleId);
+    }
+
+    @Override
+    @Transactional(readOnly = true,rollbackFor = Exception.class)
+    public List<UcloudRoleUser> listByUserId(Long userId) {
+        if (userId==null){
+           throw new UcloudBizException(ErrorCodeEnum.UCLOUD10011011);
+        }
+        return ucloudRoleUserMapper.listByUserId(userId);
+    }
+
+    @Override
+    public int deleteByUserId(Long userId) {
+        if (userId==null){
+            throw new UcloudBizException(ErrorCodeEnum.UCLOUD10011001,userId);
+        }
+        UcloudRoleUser roleUser=new UcloudRoleUser();
+        roleUser.setUserId(userId);
+        return ucloudRoleUserMapper.delete(roleUser);
+    }
+
+    @Override
+    public int saveRoleUser(Long userId, Long roleId) {
+        if (userId==null){
+            throw new UcloudBizException(ErrorCodeEnum.UCLOUD10011001,userId);
+        }
+        if (roleId==null){
+            throw  new UcloudBizException(ErrorCodeEnum.UCLOUD10012001,roleId);
+        }
+        UcloudRoleUser roleUser=new UcloudRoleUser();
+        roleUser.setUserId(userId);
+        roleUser.setRoleId(roleId);
+        return ucloudRoleUserMapper.insertSelective(roleUser);
     }
 }

@@ -53,4 +53,11 @@ public interface UcloudRoleUserMapper extends MyMapper<UcloudRoleUser> {
      * @return
      */
     UcloudRoleUser getByUserIdAndRoleId(@Param("userId") Long userId, @Param("roleId") Long roleId);
+
+    /**
+     * select list by UserId
+     * @param userId
+     * @return
+     */
+    List<UcloudRoleUser> listByUserId(@Param("userId") Long userId);
 }

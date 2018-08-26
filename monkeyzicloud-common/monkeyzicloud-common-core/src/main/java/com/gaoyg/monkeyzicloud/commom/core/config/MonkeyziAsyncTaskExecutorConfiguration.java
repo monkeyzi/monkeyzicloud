@@ -30,7 +30,6 @@ import java.util.concurrent.Executor;
 /**
  * The class Async config.
  *
- * @author paascloud.net @gmail.com
  */
 @Configuration
 @EnableAsync

@@ -23,4 +23,18 @@ public interface UcloudRoleUserService extends IBaseService<UcloudRoleUser> {
     void deleteByRoleIdList(List<Long> roleIdList);
 
     UcloudRoleUser getByUserIdAndRoleId(Long userId, Long roleId);
+
+    List<UcloudRoleUser> listByUserId(Long userId);
+
+    int deleteByUserId(Long userId);
+
+    /**
+     * 保存用户角色中间表信息.
+     *
+     * @param userId the user id
+     * @param roleId the role id
+     *
+     * @return the int
+     */
+    int saveRoleUser(Long userId, Long roleId);
 }

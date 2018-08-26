@@ -228,4 +228,34 @@
         LEFT JOIN ucloud_group g on gu.group_id = g.id
         WHERE u.id = #{userId}
     </select>
+    <update id="updateUcloudUser" parameterType="ucloudUser">
+        update ucloud_user
+        <include refid="Base_Set_Condition"/>
+        where  id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <select id="selectUserList" parameterType="ucloudUser" resultType="ucloudUser">
+        SELECT
+        <include refid="Base_Column_List"/>, g.id as groupId, g.group_name as groupName
+        FROM
+        ucloud_user u
+        LEFT JOIN ucloud_group_user gu ON gu.user_id = u.id
+        LEFT JOIN ucloud_group g ON g.id = gu.group_id
+        WHERE 1 = 1
+        <include refid="Base_Where_Condition">
+            <property name="alias" value="u"></property>
+        </include>
+        <include refid="Base_OrderBy_Condition">
+            <property name="alias" value="u"></property>
+        </include>
+    </select>
+
+    <select id="selectAllNeedBindRole" parameterType="long" resultType="com.gaoyg.monkeyzicloud.provider.model.dto.role.BindRoleDto">
+        SELECT
+            r.id as roleId,
+            r.role_code as roleCode,
+            r.role_name as roleName,
+            (r.id = #{superManagerRoleId}) AS disabled
+        FROM ucloud_role r
+    </select>
 </mapper>

@@ -50,7 +50,7 @@ public class UcloudUserTokenServiceImpl extends BaseService<UcloudUserToken> imp
         Long userId=loginAuthDto.getUserId();
         UcloudUser ucloudUser=ucloudUserService.selectByKey(userId);
         //获取浏览器信息
-        final UserAgent userAgent = UserAgent.parseUserAgentString(request.getHeader("User-Agent"));
+        final UserAgent userAgent = UserAgent.parseUserAgentString(request.getHeader("user-Agent"));
         //获取客户端操作系统
         final String os = userAgent.getOperatingSystem().getName();
         //获取客户端浏览器

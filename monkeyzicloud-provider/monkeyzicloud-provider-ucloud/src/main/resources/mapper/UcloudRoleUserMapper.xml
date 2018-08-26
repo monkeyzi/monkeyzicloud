@@ -18,6 +18,9 @@
         SELECT role_id, user_id from ucloud_role_user WHERE role_id = #{roleId}
     </select>
 
+    <select id="listByUserId" resultMap="BaseResultMap">
+        SELECT role_id, user_id from ucloud_role_user WHERE user_id = #{userId}
+    </select>
 
     <delete id="deleteByRoleId">
         delete from ucloud_role_user

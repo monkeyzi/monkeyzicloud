@@ -45,4 +45,8 @@ public interface UcloudLogService extends IBaseService<UcloudLog> {
      * @return
      */
     List<UcloudLog> queryUserLogListByUserId(Long userId);
+
+
+
+
 }

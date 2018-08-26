@@ -66,4 +66,11 @@ public interface IBaseService<T> {
      * @return the int
      */
     int update(T entity);
+
+    /**
+     * save
+     * @param record
+     * @return
+     */
+    int save(T record);
 }

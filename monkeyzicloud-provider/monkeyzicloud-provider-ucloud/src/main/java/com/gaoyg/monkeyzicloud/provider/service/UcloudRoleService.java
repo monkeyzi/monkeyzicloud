@@ -43,4 +43,13 @@ public interface UcloudRoleService extends IBaseService<UcloudRole> {
      * @return
      */
     int saveRole(UcloudRole role, LoginAuthDto loginAuthDto);
+
+    /**
+     * 根据角色Id获取角色信息.
+     *
+     * @param roleId the role id
+     *
+     * @return the role by id
+     */
+    UcloudRole getRoleById(Long roleId);
 }

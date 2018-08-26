@@ -64,8 +64,8 @@ public class JacksonUtil {
 
 	/**
 	 * json数据转化为对象(Class)
-	 * User u = JacksonUtil.parseJson(jsonValue, User.class);
-	 * User[] arr = JacksonUtil.parseJson(jsonValue, User[].class);
+	 * user u = JacksonUtil.parseJson(jsonValue, user.class);
+	 * user[] arr = JacksonUtil.parseJson(jsonValue, user[].class);
 	 *
 	 * @param <T>       the type parameter
 	 * @param jsonValue the json value
@@ -129,8 +129,8 @@ public class JacksonUtil {
 
 	/**
 	 * json数据转化为对象(时间转换格式： "yyyy-MM-dd HH:mm:ss")
-	 * User u = JacksonUtil.parseJsonWithFormat(jsonValue, User.class);
-	 * User[] arr = JacksonUtil.parseJsonWithFormat(jsonValue, User[].class);
+	 * user u = JacksonUtil.parseJsonWithFormat(jsonValue, user.class);
+	 * user[] arr = JacksonUtil.parseJsonWithFormat(jsonValue, user[].class);
 	 *
 	 * @param <T>       the type parameter
 	 * @param jsonValue the json value

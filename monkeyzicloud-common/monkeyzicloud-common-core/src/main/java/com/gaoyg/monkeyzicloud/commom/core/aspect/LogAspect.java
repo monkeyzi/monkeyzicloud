@@ -67,7 +67,7 @@ public class LogAspect {
         final Date startTime=this.threadLocal.get();
         final Date endTime=new Date(System.currentTimeMillis());
         HttpServletRequest request=RequestUtils.getRequest();
-        final UserAgent userAgent = UserAgent.parseUserAgentString(request.getHeader("User-Agent"));
+        final UserAgent userAgent = UserAgent.parseUserAgentString(request.getHeader("user-Agent"));
         String requestURI = request.getRequestURI();
         try {
             LogAnnotation logF=giveController(joinPoint);

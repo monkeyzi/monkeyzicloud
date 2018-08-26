@@ -106,4 +106,10 @@ public class UcloudRoleServiceImpl extends BaseService<UcloudRole>  implements U
         }
         return result;
     }
+
+    @Override
+    @Transactional(readOnly = true,rollbackFor = Exception.class)
+    public UcloudRole getRoleById(Long roleId) {
+        return ucloudRoleMapper.selectByPrimaryKey(roleId);
+    }
 }
