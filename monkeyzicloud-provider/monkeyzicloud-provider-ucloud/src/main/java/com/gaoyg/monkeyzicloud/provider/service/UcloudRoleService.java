@@ -5,6 +5,7 @@ import com.gaoyg.monkeyzicloud.dto.LoginAuthDto;
 import com.gaoyg.monkeyzicloud.provider.model.domain.UcloudRole;
 import com.gaoyg.monkeyzicloud.provider.model.domain.UcloudUser;
 import com.gaoyg.monkeyzicloud.provider.model.vo.RoleVo;
+import com.gaoyg.monkeyzicloud.provider.model.vo.role.BindAuthVo;
 
 import java.util.List;
 
@@ -52,4 +53,18 @@ public interface UcloudRoleService extends IBaseService<UcloudRole> {
      * @return the role by id
      */
     UcloudRole getRoleById(Long roleId);
+
+    /**
+     * 查询角色绑定的权限信息
+     * @param roleId
+     * @return
+     */
+    BindAuthVo getActionTreeByRoleId(Long roleId);
+
+    /**
+     * 查询角色绑定的菜单信息
+     * @param roleId
+     * @return
+     */
+    BindAuthVo getMenuTreeByRoleId(Long roleId);
 }

@@ -36,4 +36,11 @@ public interface UcloudMenuService extends IBaseService<UcloudMenu> {
      * @return
      */
     List<UcloudMenu> selectMenuList(UcloudMenu ucloudMenu);
+
+    /**
+     * 根据角色Id查询角色绑定的菜单信息
+     * @param roleId
+     * @return
+     */
+    List<UcloudMenu> listMenuListByRoleId(Long roleId);
 }

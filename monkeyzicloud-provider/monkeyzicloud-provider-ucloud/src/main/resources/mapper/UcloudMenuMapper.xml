@@ -211,4 +211,12 @@
             #{item}
         </foreach>
     </select>
+
+    <select id="listMenuListByRoleId" resultType="ucloudMenu">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM ucloud_menu m LEFT JOIN ucloud_role_menu rm on m.id = rm.menu_id
+        LEFT JOIN ucloud_role r on r.id = rm.role_id
+        where r.id = #{roleId, jdbcType=BIGINT}
+    </select>
 </mapper>

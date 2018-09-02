@@ -40,4 +40,13 @@ public interface UcloudMenuMapper extends MyMapper<UcloudMenu> {
      * @return
      */
     List<UcloudMenu> listMenu(@Param("menuIdList") Set<Long> menuIdList);
+
+    /**
+     * 根据角色ID查询菜单列表.
+     *
+     * @param roleId the role id
+     *
+     * @return the list
+     */
+    List<UcloudMenu> listMenuListByRoleId(@Param("roleId") Long roleId);
 }

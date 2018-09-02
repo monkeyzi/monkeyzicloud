@@ -6,17 +6,21 @@ import com.gaoyg.monkeyzicloud.dto.LoginAuthDto;
 import com.gaoyg.monkeyzicloud.enums.ErrorCodeEnum;
 import com.gaoyg.monkeyzicloud.provider.exception.UcloudBizException;
 import com.gaoyg.monkeyzicloud.provider.mapper.UcloudRoleMapper;
+import com.gaoyg.monkeyzicloud.provider.model.domain.UcloudAction;
+import com.gaoyg.monkeyzicloud.provider.model.domain.UcloudMenu;
 import com.gaoyg.monkeyzicloud.provider.model.domain.UcloudRole;
 import com.gaoyg.monkeyzicloud.provider.model.domain.UcloudRoleUser;
 import com.gaoyg.monkeyzicloud.provider.model.vo.RoleVo;
-import com.gaoyg.monkeyzicloud.provider.service.UcloudRoleActionService;
-import com.gaoyg.monkeyzicloud.provider.service.UcloudRoleMenuService;
-import com.gaoyg.monkeyzicloud.provider.service.UcloudRoleService;
-import com.gaoyg.monkeyzicloud.provider.service.UcloudRoleUserService;
+import com.gaoyg.monkeyzicloud.provider.model.vo.role.BindAuthVo;
+import com.gaoyg.monkeyzicloud.provider.service.*;
+import com.gaoyg.monkeyzicloud.provider.utils.TreeUtil;
+import com.gaoyg.monkeyzicloud.provider.vo.MenuVo;
 import com.gaoyg.monkeyzicloud.util.pubutils.PublicUtil;
 import com.google.common.base.Joiner;
 import com.google.common.base.Preconditions;
+import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,6 +48,10 @@ public class UcloudRoleServiceImpl extends BaseService<UcloudRole>  implements U
     private UcloudRoleMenuService ucloudRoleMenuService;
     @Autowired
     private UcloudRoleActionService ucloudRoleActionService;
+    @Autowired
+    private UcloudMenuService ucloudMenuService;
+    @Autowired
+    private UcloudActionService ucloudActionService;
 
 
     @Override
@@ -111,5 +119,77 @@ public class UcloudRoleServiceImpl extends BaseService<UcloudRole>  implements U
     @Transactional(readOnly = true,rollbackFor = Exception.class)
     public UcloudRole getRoleById(Long roleId) {
         return ucloudRoleMapper.selectByPrimaryKey(roleId);
+    }
+
+    @Override
+    @Transactional(readOnly = true,rollbackFor = Exception.class)
+    public BindAuthVo getActionTreeByRoleId(Long roleId) {
+        BindAuthVo bindAuthVo=new BindAuthVo();
+        Preconditions.checkArgument(roleId!=null,ErrorCodeEnum.UCLOUD10012010.getMsg());
+        UcloudRole ucloudRole=this.getRoleById(roleId);
+        if (ucloudRole==null){
+            log.error("找不到角色信息 roleId={}", roleId);
+            throw new UcloudBizException(ErrorCodeEnum.UCLOUD10012011);
+        }
+        List<UcloudMenu> menuList=ucloudMenuService.listMenuListByRoleId(roleId);
+        if (PublicUtil.isEmpty(menuList)) {
+            throw new UcloudBizException(ErrorCodeEnum.UCLOUD10013009);
+        }
+        //查询所有的权限信息
+        List<UcloudAction> actionList=ucloudActionService.listActionList(menuList);
+        // 合并菜单和按钮权限 递归生成树结构
+        List<MenuVo> menuVoList=this.getAuthList(menuList,actionList);
+        List<MenuVo> tree = TreeUtil.getChildMenuVos(menuVoList, 0L);
+        //获取所有已经绑定的菜单和权限Id集合
+        List<Long> authActionList=ucloudActionService.getCheckedActionList(roleId);
+        bindAuthVo.setAuthTree(tree);
+        bindAuthVo.setCheckedAuthList(authActionList);
+        return bindAuthVo;
+    }
+
+    @Override
+    @Transactional(readOnly = true,rollbackFor = Exception.class)
+    public BindAuthVo getMenuTreeByRoleId(Long roleId) {
+        BindAuthVo bindAuthVo=new BindAuthVo();
+        Preconditions.checkArgument(roleId!=null,ErrorCodeEnum.UCLOUD10012010.getMsg());
+        UcloudRole ucloudRole=this.getRoleById(roleId);
+        if (ucloudRole==null){
+            log.error("找不到角色信息 roleId={}", roleId);
+            throw new UcloudBizException(ErrorCodeEnum.UCLOUD10012011);
+        }
+        //查询所有的菜单
+        List<UcloudMenu> allMenuList=ucloudMenuService.selectAll();
+        // 合并菜单和按钮权限 递归生成树结构
+        List<MenuVo> menuVoList = this.getAuthList(allMenuList, null);
+        List<MenuVo> tree = TreeUtil.getChildMenuVos(menuVoList, 0L);
+        //查询已经绑定的菜单信息
+        List<Long>   authMenuList=ucloudActionService.getCheckedMenuList(roleId);
+        bindAuthVo.setCheckedAuthList(authMenuList);
+        bindAuthVo.setAuthTree(tree);
+        return bindAuthVo;
+    }
+
+    private List<MenuVo> getAuthList(List<UcloudMenu> menuList, List<UcloudAction> actionList) {
+        List<MenuVo> menuVoList= Lists.newArrayList();
+        MenuVo menuVo;
+        for (UcloudMenu vo:menuList){
+            menuVo=new MenuVo();
+            BeanUtils.copyProperties(vo,menuVo);
+            menuVo.setRemark("menu");
+            menuVoList.add(menuVo);
+        }
+        if (PublicUtil.isNotEmpty(actionList)){
+            for (UcloudAction ucloudAction : actionList) {
+                menuVo = new MenuVo();
+                menuVo.setId(ucloudAction.getId());
+                menuVo.setMenuName(ucloudAction.getActionName());
+                menuVo.setMenuCode(ucloudAction.getActionCode());
+                menuVo.setPid(ucloudAction.getMenuId());
+                menuVo.setUrl(ucloudAction.getUrl());
+                menuVo.setRemark("action");
+                menuVoList.add(menuVo);
+            }
+        }
+        return menuVoList;
     }
 }

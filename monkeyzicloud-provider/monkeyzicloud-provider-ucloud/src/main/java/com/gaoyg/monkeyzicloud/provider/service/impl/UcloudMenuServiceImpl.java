@@ -18,10 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -113,5 +110,30 @@ public class UcloudMenuServiceImpl extends BaseService<UcloudMenu> implements Uc
         return ucloudMenuMapper.selectMenuList(ucloudMenu);
     }
 
+    @Override
+    public List<UcloudMenu> listMenuListByRoleId(Long roleId) {
+        List<UcloudMenu> menuList=ucloudMenuMapper.listMenuListByRoleId(roleId);
+        List<UcloudMenu> addMenuList=Lists.newArrayList();
+        if (PublicUtil.isNotEmpty(menuList)) {
+            menuList.stream().forEach(a->{
+               this.getMenuList(addMenuList,a.getPid());
+            });
+        }
+        menuList.addAll(addMenuList);
+        return new ArrayList<>(new HashSet<>(menuList));
+    }
+
+
+    private List<UcloudMenu> getMenuList(List<UcloudMenu> uacMenuList, Long menuId) {
+        UcloudMenu uacMenu = ucloudMenuMapper.selectByPrimaryKey(menuId);
+        if (uacMenu != null) {
+            Long pid = uacMenu.getPid();
+            if (pid != null) {
+                uacMenuList.add(uacMenu);
+                getMenuList(uacMenuList, pid);
+            }
+        }
+        return uacMenuList;
+    }
 
 }

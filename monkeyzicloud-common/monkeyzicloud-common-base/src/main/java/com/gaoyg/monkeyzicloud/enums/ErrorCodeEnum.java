@@ -1,8 +1,6 @@
 package com.gaoyg.monkeyzicloud.enums;
 
-import lombok.Data;
 import lombok.Getter;
-import lombok.Setter;
 
 /**
  * @author: 高yg
@@ -21,8 +19,15 @@ public enum  ErrorCodeEnum {
     UCLOUD10012003(10012003, "管理员角色不能删除"),
     UCLOUD10011002(10011002, "找不到用户,loginName=%s"),
     UCLOUD10012006(10012006, "删除角色失败, roleId=%s"),
+
     UCLOUD10012007(10012007, "批量删除角色失败, roleId=%s"),
+    UCLOUD10012008(10012008, "找不到绑定的角色, roleId=%s"),
+    UCLOUD10012009(10012009, "该角色编码已存在"),
+    UCLOUD10012010(10012010, "该角色Id不存在"),
+    UCLOUD10012011(10012011, "找不到角色,roleId=%s"),
     UCLOUD10012002(10012002, "该角色不允许禁用"),
+
+
     UCLOUD10012004(10012004, "用户名不能为空"),
     UCLOUD10012005(10012005, "密码不能为空"),
     UCLOUD10011026(10011026, "更新用户失败, userId=%"),
@@ -32,7 +37,7 @@ public enum  ErrorCodeEnum {
     UCLOUD10011001(10011001, "用户Id不能为空,userId=%"),
     UCLOUD10011023(10011023, "越权操作"),
     UCLOUD10011011(10011011, "用户不存在, userId=%s"),
-    UCLOUD10012008(10012008, "找不到绑定的角色, roleId=%s"),
+
     UCLOUD10011007(10011007, "登录名不能为空"),
     UCLOUD10011006(10011006, "原密码不能为空"),
     UCLOUD10011008(10011008, "新密码不能为空"),
@@ -40,6 +45,7 @@ public enum  ErrorCodeEnum {
     UCLOUD10011010(10011010, "两次密码不一致"),
     UCLOUD10011035(10011035, "原始密码输入错误"),
     UCLOUD10011036(10011036, "新密码和原始密码不能相同"),
+    UCLOUD10013009(10013009, "请先分配菜单"),
     UCLOUD10013001(10013001, "组织不能为空");
     private String msg;
     private Integer code;
