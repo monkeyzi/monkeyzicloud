@@ -60,4 +60,20 @@ public interface UcloudRoleUserMapper extends MyMapper<UcloudRoleUser> {
      * @return
      */
     List<UcloudRoleUser> listByUserId(@Param("userId") Long userId);
+
+    /**
+     * 查询超级管理员角色绑定的用户Id
+     * @param roleId
+     * @return
+     */
+    List<Long> listSuperUser(@Param("roleId") Long roleId);
+
+    /**
+     * 删除该角色绑定的除了超管的用户
+     * @param currentRoleId
+     * @param superRoleId
+     * @return
+     */
+    int deleteExcludeSuperMng(@Param("currentRoleId") Long currentRoleId, @Param("superRoleId") Long superRoleId);
+
 }

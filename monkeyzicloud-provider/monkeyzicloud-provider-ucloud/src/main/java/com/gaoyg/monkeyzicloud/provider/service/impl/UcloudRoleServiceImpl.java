@@ -6,16 +6,15 @@ import com.gaoyg.monkeyzicloud.dto.LoginAuthDto;
 import com.gaoyg.monkeyzicloud.enums.ErrorCodeEnum;
 import com.gaoyg.monkeyzicloud.provider.exception.UcloudBizException;
 import com.gaoyg.monkeyzicloud.provider.mapper.UcloudRoleMapper;
-import com.gaoyg.monkeyzicloud.provider.model.domain.UcloudAction;
-import com.gaoyg.monkeyzicloud.provider.model.domain.UcloudMenu;
-import com.gaoyg.monkeyzicloud.provider.model.domain.UcloudRole;
-import com.gaoyg.monkeyzicloud.provider.model.domain.UcloudRoleUser;
+import com.gaoyg.monkeyzicloud.provider.model.domain.*;
+import com.gaoyg.monkeyzicloud.provider.model.dto.role.RoleBindUserReqDto;
 import com.gaoyg.monkeyzicloud.provider.model.vo.RoleVo;
 import com.gaoyg.monkeyzicloud.provider.model.vo.role.BindAuthVo;
 import com.gaoyg.monkeyzicloud.provider.service.*;
 import com.gaoyg.monkeyzicloud.provider.utils.TreeUtil;
 import com.gaoyg.monkeyzicloud.provider.vo.MenuVo;
 import com.gaoyg.monkeyzicloud.util.pubutils.PublicUtil;
+import com.gaoyg.monkeyzicloud.util.util.Collections3;
 import com.google.common.base.Joiner;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
@@ -52,6 +51,8 @@ public class UcloudRoleServiceImpl extends BaseService<UcloudRole>  implements U
     private UcloudMenuService ucloudMenuService;
     @Autowired
     private UcloudActionService ucloudActionService;
+    @Autowired
+    private UcloudUserService ucloudUserService;
 
 
     @Override
@@ -168,6 +169,58 @@ public class UcloudRoleServiceImpl extends BaseService<UcloudRole>  implements U
         bindAuthVo.setAuthTree(tree);
         return bindAuthVo;
     }
+
+
+    @Override
+    public void bindUserRole(RoleBindUserReqDto roleBindUserReqDto, LoginAuthDto loginAuthDto) {
+        if (roleBindUserReqDto == null) {
+            log.error("参数不能为空");
+            throw new IllegalArgumentException("参数不能为空");
+        }
+        Long roleId = roleBindUserReqDto.getRoleId();
+        Long loginUserId = loginAuthDto.getUserId();
+        List<Long> userIdList = roleBindUserReqDto.getUserIdList();
+        if (null==roleId){
+            throw new UcloudBizException(ErrorCodeEnum.UCLOUD10012001);
+        }
+        UcloudRole role=this.getRoleById(roleId);
+        if (role == null) {
+            log.error("找不到角色信息 roleId={}", roleId);
+            throw new UcloudBizException(ErrorCodeEnum.UCLOUD10012011, roleId);
+        }
+        if (PublicUtil.isNotEmpty(userIdList)&&userIdList.contains(loginUserId)){
+            throw new UcloudBizException(ErrorCodeEnum.UCLOUD10011023);
+        }
+        //查询超级管理员用户Id集合
+        List<Long> superUserList=ucloudRoleUserService.listSuperUser(GlobalConstant.Sys.SUER_MANAGE_ROLE_ID);
+        //交集
+        List<Long> unionList = Collections3.intersection(userIdList, superUserList);
+        if (PublicUtil.isNotEmpty(userIdList) && PublicUtil.isNotEmpty(unionList)) {
+            log.error("不能操作超级管理员用户 超级用户={}", unionList);
+            throw new UcloudBizException(ErrorCodeEnum.UCLOUD10011023);
+        }
+        //先取消对该角色的用户绑定，(不包含超级管理员)
+        List<UcloudRoleUser> userRoles = ucloudRoleUserService.listByRoleId(roleId);
+        if (PublicUtil.isNotEmpty(userRoles)){
+           ucloudRoleUserService.deleteExcludeSuperMng(roleId,GlobalConstant.Sys.SUER_MANAGE_ROLE_ID);
+        }
+        if (PublicUtil.isEmpty(userIdList)) {
+            // 取消该角色的所有用户的绑定
+            log.info("取消绑定所有非超级管理员用户成功");
+            return;
+        }
+        userIdList.stream().forEach(a->{
+            //先通过用户的Id查询用户
+            UcloudUser ucloudUser=ucloudUserService.queryUserById(a);
+            if (PublicUtil.isEmpty(ucloudUser)) {
+                log.error("找不到绑定的用户 userId={}", a);
+                throw new UcloudBizException(ErrorCodeEnum.UCLOUD10011024, a);
+            }
+            //添加关系
+            ucloudRoleUserService.saveRoleUser(a,roleId);
+        });
+    }
+
 
     private List<MenuVo> getAuthList(List<UcloudMenu> menuList, List<UcloudAction> actionList) {
         List<MenuVo> menuVoList= Lists.newArrayList();

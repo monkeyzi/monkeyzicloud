@@ -5,7 +5,6 @@ import com.gaoyg.monkeyzicloud.constant.GlobalConstant;
 import com.gaoyg.monkeyzicloud.enums.ErrorCodeEnum;
 import com.gaoyg.monkeyzicloud.provider.exception.UcloudBizException;
 import com.gaoyg.monkeyzicloud.provider.mapper.UcloudRoleUserMapper;
-import com.gaoyg.monkeyzicloud.provider.model.domain.UcloudRole;
 import com.gaoyg.monkeyzicloud.provider.model.domain.UcloudRoleUser;
 import com.gaoyg.monkeyzicloud.provider.service.UcloudRoleUserService;
 import com.gaoyg.monkeyzicloud.util.pubutils.PublicUtil;
@@ -105,5 +104,34 @@ public class UcloudRoleUserServiceImpl extends BaseService<UcloudRoleUser> imple
         roleUser.setUserId(userId);
         roleUser.setRoleId(roleId);
         return ucloudRoleUserMapper.insertSelective(roleUser);
+    }
+
+    @Override
+    @Transactional(readOnly = true,rollbackFor = Exception.class)
+    public List<Long> listSuperUser(Long superManagerRoleId) {
+        if (null==superManagerRoleId){
+            throw  new UcloudBizException(ErrorCodeEnum.UCLOUD10012001);
+        }
+        return ucloudRoleUserMapper.listSuperUser(superManagerRoleId);
+    }
+
+    @Override
+    @Transactional(readOnly = true, rollbackFor = Exception.class)
+    public List<UcloudRoleUser> listByRoleId(Long roleId) {
+        if (null==roleId){
+            throw  new UcloudBizException(ErrorCodeEnum.UCLOUD10012001);
+        }
+        return ucloudRoleUserMapper.listByRoleId(roleId);
+    }
+
+    @Override
+    public void deleteExcludeSuperMng(Long roleId, Long superManagerRoleId) {
+        if (roleId == null) {
+            throw new UcloudBizException(ErrorCodeEnum.UCLOUD10012001);
+        }
+        if (superManagerRoleId == null) {
+            throw new UcloudBizException(ErrorCodeEnum.UCLOUD100120012);
+        }
+        ucloudRoleUserMapper.deleteExcludeSuperMng(roleId, superManagerRoleId);
     }
 }

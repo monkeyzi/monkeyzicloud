@@ -51,4 +51,38 @@
     <select id="getByUserIdAndRoleId" resultMap="BaseResultMap">
         SELECT role_id, user_id from ucloud_role_user WHERE user_id = #{userId} and role_id = #{roleId}
     </select>
+   <!--查询超级管理员角色绑定的用户Id-->
+    <select id="listSuperUser" parameterType="long" resultType="java.lang.Long">
+        SELECT
+            ru.user_id
+        FROM
+            `ucloud_role_user` ru
+            LEFT JOIN ucloud_user u ON ru.user_id = u.id
+        WHERE
+            ru.role_id = #{roleId}
+    </select>
+    <!--删除该角色下除了超管的用户-->
+    <delete id="deleteExcludeSuperMng" parameterType="map">
+        DELETE
+        FROM
+            ucloud_role_user
+        WHERE
+            user_id IN (SELECT temp.user_id
+                        FROM (
+                                 SELECT ru.user_id
+                                 FROM
+                                     `ucloud_role_user` ru
+                                     LEFT JOIN ucloud_user u ON ru.user_id = u.id
+                                 WHERE
+                                     ru.role_id = #{currentRoleId}
+                                     AND ru.user_id NOT IN (
+                                         SELECT ru.user_id
+                                         FROM
+                                             `ucloud_role_user` ru
+                                             LEFT JOIN ucloud_user u ON ru.user_id = u.id
+                                         WHERE
+                                             ru.role_id = #{superRoleId}
+                                     )) temp
+            )
+    </delete>
 </mapper>
