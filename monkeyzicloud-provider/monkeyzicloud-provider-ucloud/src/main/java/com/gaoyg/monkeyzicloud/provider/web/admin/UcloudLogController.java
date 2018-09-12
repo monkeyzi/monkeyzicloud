@@ -27,7 +27,7 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping(value = "/log",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @Slf4j
-@Api(value = "monkeyzicloud-ucloudLogController",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@Api(value = "monkeyzicloud-ucloudLogController",description = "日志管理",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class UcloudLogController extends BaseController {
 
     @Resource

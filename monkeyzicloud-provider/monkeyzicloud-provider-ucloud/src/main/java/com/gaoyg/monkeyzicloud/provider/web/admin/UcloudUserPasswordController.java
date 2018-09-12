@@ -29,7 +29,7 @@ import javax.annotation.Resource;
 @RestController
 @Slf4j
 @RequestMapping(value = "/user", produces = {"application/json;charset=UTF-8"})
-@Api(value = "api - UcloudUserPasswordController", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@Api(value = "api - UcloudUserPasswordController", description = "密码管理",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class UcloudUserPasswordController extends BaseController {
     @Resource
     private UcloudUserService ucloudUserService;

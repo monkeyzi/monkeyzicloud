@@ -31,7 +31,7 @@ import javax.annotation.Resource;
 @RestController
 @Slf4j
 @RequestMapping(value = "/user", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-@Api(value = "Web - UcloudUserCommonController", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@Api(value = "Web - UcloudUserCommonController",description = "用户管理通用接口", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class UcloudUserCommonController extends BaseController {
 
     @Resource

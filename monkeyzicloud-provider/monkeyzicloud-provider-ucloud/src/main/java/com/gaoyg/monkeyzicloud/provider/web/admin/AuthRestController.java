@@ -23,7 +23,7 @@ import javax.annotation.Resource;
 @Slf4j
 @RestController
 @RequestMapping(value = "/auth")
-@Api(value = "monkeyzi-AuthRestController", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@Api(value = "monkeyzi-AuthRestController",description = "不需要认证的接口", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class AuthRestController {
     @Resource
     private UcloudLogService ucloudLogService;

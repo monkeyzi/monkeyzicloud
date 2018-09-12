@@ -39,7 +39,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping(value = "/role", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-@Api(value = "monkeyzi - UcloudRoleController", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@Api(value = "monkeyzi - UcloudRoleController",description = "角色管理",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class UcloudRoleController extends BaseController {
 
     @Autowired

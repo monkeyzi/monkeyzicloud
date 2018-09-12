@@ -2,6 +2,7 @@ package com.gaoyg.monkeyzicloud.provider.mapper;
 
 import com.gaoyg.monkeyzicloud.commom.core.mybatis.MyMapper;
 import com.gaoyg.monkeyzicloud.provider.model.domain.UcloudRole;
+import com.gaoyg.monkeyzicloud.provider.model.dto.UserRole.BindUserDto;
 import com.gaoyg.monkeyzicloud.provider.model.vo.RoleVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -53,4 +54,7 @@ public interface UcloudRoleMapper extends MyMapper<UcloudRole> {
      * @return
      */
     int batchDeleteByIdList(@Param("idList") List<Long> idList);
+
+    List<BindUserDto> selectAllNeedBindUser(@Param("superManagerRoleId") Long superManagerRoleId,
+                                            @Param("currentUserId") Long currentUserId);
 }

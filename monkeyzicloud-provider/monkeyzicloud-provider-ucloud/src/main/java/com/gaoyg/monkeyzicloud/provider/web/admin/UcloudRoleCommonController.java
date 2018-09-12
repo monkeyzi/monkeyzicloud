@@ -26,7 +26,7 @@ import tk.mybatis.mapper.entity.Example;
 @RestController
 @Slf4j
 @RequestMapping(value = "/role", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-@Api(value = "monkeyzi - UcloudRoleCommonController", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@Api(value = "monkeyzi - UcloudRoleCommonController",description = "角色管理通用接口",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class UcloudRoleCommonController  extends BaseController {
 
     @Autowired

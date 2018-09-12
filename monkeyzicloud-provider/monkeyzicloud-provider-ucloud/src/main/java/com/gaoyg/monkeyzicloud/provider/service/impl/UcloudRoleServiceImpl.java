@@ -7,6 +7,8 @@ import com.gaoyg.monkeyzicloud.enums.ErrorCodeEnum;
 import com.gaoyg.monkeyzicloud.provider.exception.UcloudBizException;
 import com.gaoyg.monkeyzicloud.provider.mapper.UcloudRoleMapper;
 import com.gaoyg.monkeyzicloud.provider.model.domain.*;
+import com.gaoyg.monkeyzicloud.provider.model.dto.UserRole.BindUserDto;
+import com.gaoyg.monkeyzicloud.provider.model.dto.UserRole.RoleBindUserDto;
 import com.gaoyg.monkeyzicloud.provider.model.dto.role.RoleBindUserReqDto;
 import com.gaoyg.monkeyzicloud.provider.model.vo.RoleVo;
 import com.gaoyg.monkeyzicloud.provider.model.vo.role.BindAuthVo;
@@ -18,6 +20,7 @@ import com.gaoyg.monkeyzicloud.util.util.Collections3;
 import com.google.common.base.Joiner;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * @author: 高yg
@@ -219,6 +223,30 @@ public class UcloudRoleServiceImpl extends BaseService<UcloudRole>  implements U
             //添加关系
             ucloudRoleUserService.saveRoleUser(a,roleId);
         });
+    }
+
+    @Override
+    @Transactional(readOnly = true, rollbackFor = Exception.class)
+    public RoleBindUserDto getRoleBindUserDto(Long roleId, Long currentUserId) {
+        RoleBindUserDto roleBindUserDto = new RoleBindUserDto();
+        Set<Long> alreadyBindUserIdSet = Sets.newHashSet();
+        UcloudRole ucloudRole = ucloudRoleMapper.selectByPrimaryKey(roleId);
+        if (PublicUtil.isEmpty(ucloudRole)){
+            log.error("找不到角色 roleId={}",roleId);
+           throw new UcloudBizException(ErrorCodeEnum.UCLOUD10012011,roleId);
+        }
+        //查询所有用户包含已经禁用的用户
+        List<BindUserDto>    allNeedBindUser=ucloudRoleMapper.selectAllNeedBindUser(GlobalConstant.Sys.SUER_MANAGE_ROLE_ID,
+                currentUserId);
+         // 该角色已经绑定的用户
+        List<UcloudRoleUser> setAlreadyBindUserSet = ucloudRoleUserService.listByRoleId(roleId);
+        Set<BindUserDto> bindUserDtoSet=Sets.newHashSet(allNeedBindUser);
+        setAlreadyBindUserSet.stream().forEach(a->{
+            alreadyBindUserIdSet.add(a.getUserId());
+        });
+        roleBindUserDto.setAllUserSet(bindUserDtoSet);
+        roleBindUserDto.setAlreadyBindUserIdSet(alreadyBindUserIdSet);
+        return roleBindUserDto;
     }
 
 

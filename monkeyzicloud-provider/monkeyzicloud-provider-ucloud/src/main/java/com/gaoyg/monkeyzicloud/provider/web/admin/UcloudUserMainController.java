@@ -35,7 +35,7 @@ import java.util.Objects;
 @Slf4j
 @RestController
 @RequestMapping(value = "/user", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-@Api(value = "monkeyzi - UcloudUserMainController", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@Api(value = "monkeyzi - UcloudUserMainController",description = "用户管理",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class UcloudUserMainController extends BaseController {
     @Autowired
     private UcloudUserService ucloudUserService;

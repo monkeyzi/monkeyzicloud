@@ -3,6 +3,7 @@ package com.gaoyg.monkeyzicloud.provider.web.admin;
 import com.gaoyg.monkeyzicloud.commom.core.annotation.LogAnnotation;
 import com.gaoyg.monkeyzicloud.commom.core.support.BaseController;
 import com.gaoyg.monkeyzicloud.dto.LoginAuthDto;
+import com.gaoyg.monkeyzicloud.provider.model.dto.UserRole.RoleBindUserDto;
 import com.gaoyg.monkeyzicloud.provider.model.dto.role.RoleBindUserReqDto;
 import com.gaoyg.monkeyzicloud.provider.service.UcloudRoleService;
 import com.gaoyg.monkeyzicloud.util.response.R;
@@ -12,10 +13,7 @@ import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author: 高yg
@@ -27,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping(value = "/role", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-@Api(value = "monkeyzi - UcloudRoleBindUserController", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@Api(value = "monkeyzi - UcloudRoleBindUserController",description = "角色绑定用户管理",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class UcloudRoleBindUserController extends BaseController {
 
    @Autowired
@@ -43,6 +41,17 @@ public class UcloudRoleBindUserController extends BaseController {
         //执行绑定操作
         ucloudRoleService.bindUserRole(roleBindUserReqDto,loginAuthDto);
        return R.ok("操作成功");
+   }
+
+    @PostMapping(value = "/getBindUser/{roleId}")
+    @ApiOperation(httpMethod = "POST", value = "获取角色绑定用户界面的数据")
+   public R getBindUser(@ApiParam(name = "roleId", value = "角色id") @PathVariable Long roleId){
+        log.info("获取角色绑定用户界面的数据参数  roleId={}",roleId);
+        LoginAuthDto loginAuthDto=super.getLoginAuthDto();
+        Long currentUserId=loginAuthDto.getUserId();
+        //执行查询
+        RoleBindUserDto bindUserDto=ucloudRoleService.getRoleBindUserDto(roleId,currentUserId);
+        return R.ok("查询成功",bindUserDto);
    }
 
 }
