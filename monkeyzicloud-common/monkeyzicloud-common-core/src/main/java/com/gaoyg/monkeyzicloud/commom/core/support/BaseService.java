@@ -76,4 +76,10 @@ public class BaseService<T> implements IBaseService<T> {
     public int selectCountByExample(Object example) {
         return mapper.selectCountByExample(example);
     }
+
+    @Override
+    public int delete(T record) {
+        return mapper.delete(record);
+    }
+
 }

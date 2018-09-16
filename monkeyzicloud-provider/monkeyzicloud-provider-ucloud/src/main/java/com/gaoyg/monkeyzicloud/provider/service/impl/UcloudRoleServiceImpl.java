@@ -9,6 +9,8 @@ import com.gaoyg.monkeyzicloud.provider.mapper.UcloudRoleMapper;
 import com.gaoyg.monkeyzicloud.provider.model.domain.*;
 import com.gaoyg.monkeyzicloud.provider.model.dto.UserRole.BindUserDto;
 import com.gaoyg.monkeyzicloud.provider.model.dto.UserRole.RoleBindUserDto;
+import com.gaoyg.monkeyzicloud.provider.model.dto.role.RoleBindActionDto;
+import com.gaoyg.monkeyzicloud.provider.model.dto.role.RoleBindMenuDto;
 import com.gaoyg.monkeyzicloud.provider.model.dto.role.RoleBindUserReqDto;
 import com.gaoyg.monkeyzicloud.provider.model.vo.RoleVo;
 import com.gaoyg.monkeyzicloud.provider.model.vo.role.BindAuthVo;
@@ -247,6 +249,92 @@ public class UcloudRoleServiceImpl extends BaseService<UcloudRole>  implements U
         roleBindUserDto.setAllUserSet(bindUserDtoSet);
         roleBindUserDto.setAlreadyBindUserIdSet(alreadyBindUserIdSet);
         return roleBindUserDto;
+    }
+
+    @Override
+    public void bindAction(RoleBindActionDto grantAuthRole) {
+        Long roleId = grantAuthRole.getRoleId();
+        Set<Long> actionIdList = grantAuthRole.getActionIdList();
+
+        if (roleId == null) {
+            throw new UcloudBizException(ErrorCodeEnum.UCLOUD10012001);
+        }
+        if (Objects.equals(roleId, GlobalConstant.Sys.SUER_MANAGE_ROLE_ID)) {
+            log.error("越权操作, 超级管理员用户不允许操作");
+            throw new UcloudBizException(ErrorCodeEnum.UCLOUD10011023);
+        }
+        //查询角色信息
+        UcloudRole uacRole = ucloudRoleMapper.selectByPrimaryKey(roleId);
+
+        if (uacRole == null) {
+            log.error("找不到角色信息. roleId={}", roleId);
+            throw new UcloudBizException(ErrorCodeEnum.UCLOUD10012011, roleId);
+        }
+       //校验权限是否存在
+        actionIdList.stream().forEach(a->{
+            UcloudAction action=ucloudActionService.selectByKey(a);
+            if (action==null){
+                throw new UcloudBizException(ErrorCodeEnum.UCLOUD10015001,a);
+            }
+        });
+
+        List<UcloudRoleAction> ucloudRoleActionList = ucloudRoleActionService.listByRoleId(roleId);
+
+        //先删除
+        if (PublicUtil.isNotEmpty(ucloudRoleActionList)) {
+            ucloudRoleActionService.deleteByRoleId(roleId);
+        }
+
+        if (PublicUtil.isEmpty(actionIdList)) {
+            log.error("传入按钮权限Id为空, 取消所有按钮权限");
+        } else {
+            // 绑定权限
+            ucloudRoleActionService.insert(roleId, actionIdList);
+        }
+    }
+
+    @Override
+    public void bindMenu(RoleBindMenuDto roleBindMenuDto) {
+        Long roleId = roleBindMenuDto.getRoleId();
+        Set<Long> menuIdList = roleBindMenuDto.getMenuIdList();
+
+        if (roleId == null) {
+            throw new UcloudBizException(ErrorCodeEnum.UCLOUD10012001);
+        }
+
+        if (Objects.equals(roleId, GlobalConstant.Sys.SUER_MANAGE_ROLE_ID)) {
+            log.error("越权操作, 超级管理员用户不允许操作");
+            throw new UcloudBizException(ErrorCodeEnum.UCLOUD10011023);
+        }
+
+        UcloudRole uacRole = ucloudRoleMapper.selectByPrimaryKey(roleId);
+
+        if (uacRole == null) {
+            log.error("找不到角色信息. roleId={}", roleId);
+            throw new UcloudBizException(ErrorCodeEnum.UCLOUD10012011, roleId);
+        }
+
+        // 校验菜单是否存在
+        menuIdList.stream().forEach(a->{
+            UcloudMenu menu=ucloudMenuService.selectByKey(a);
+            if (menu==null){
+                throw new UcloudBizException(ErrorCodeEnum.UCLOUD10014002,a);
+            }
+        });
+        List<UcloudRoleMenu> uacRoleMenuList = ucloudRoleMenuService.listByRoleId(roleId);
+
+        if (PublicUtil.isNotEmpty(uacRoleMenuList)) {
+            ucloudRoleMenuService.deleteByRoleId(roleId);
+        }
+
+        // 如果为空则 取消该角色所有权限
+        if (PublicUtil.isEmpty(menuIdList)) {
+            log.error("传入菜单权限Id为空, 取消菜单权限");
+        } else {
+            // 绑定菜单
+            ucloudRoleMenuService.insert(roleId, menuIdList);
+
+        }
     }
 
 

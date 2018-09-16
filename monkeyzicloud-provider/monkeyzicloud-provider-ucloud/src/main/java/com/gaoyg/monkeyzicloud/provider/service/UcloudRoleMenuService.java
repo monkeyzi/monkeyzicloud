@@ -4,6 +4,7 @@ import com.gaoyg.monkeyzicloud.commom.core.support.IBaseService;
 import com.gaoyg.monkeyzicloud.provider.model.domain.UcloudRoleMenu;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author: 高yg
@@ -24,4 +25,19 @@ public interface UcloudRoleMenuService extends IBaseService<UcloudRoleMenu> {
      * @param roleIdList
      */
     void deleteByRoleIdList(List<Long> roleIdList);
+
+    /**
+     * 角色绑定菜单
+     * @param roleId
+     * @param menuIdList
+     */
+    void insert(Long roleId, Set<Long> menuIdList);
+
+    /**
+     * 查询角色绑定过的菜单
+     * @param roleId
+     * @return
+     */
+
+    List<UcloudRoleMenu> listByRoleId(Long roleId);
 }

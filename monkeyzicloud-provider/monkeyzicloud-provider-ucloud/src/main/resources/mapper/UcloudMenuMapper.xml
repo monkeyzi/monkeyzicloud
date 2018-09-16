@@ -219,4 +219,15 @@
         LEFT JOIN ucloud_role r on r.id = rm.role_id
         where r.id = #{roleId, jdbcType=BIGINT}
     </select>
+
+    <select id="selectMenuChildCountByPid" resultType="java.lang.Integer">
+        SELECT
+            count(1)
+        FROM
+          ucloud_menu mp
+        INNER JOIN
+            ucloud_menu mc ON mp.id = mc.pid
+        where
+             mp.id=#{pid,jdbcType=BIGINT}
+    </select>
 </mapper>

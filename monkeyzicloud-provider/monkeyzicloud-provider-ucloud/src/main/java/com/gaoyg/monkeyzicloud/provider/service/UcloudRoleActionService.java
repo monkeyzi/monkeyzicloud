@@ -4,6 +4,7 @@ import com.gaoyg.monkeyzicloud.commom.core.support.IBaseService;
 import com.gaoyg.monkeyzicloud.provider.model.domain.UcloudRoleAction;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author: 高yg
@@ -25,4 +26,18 @@ public interface UcloudRoleActionService extends IBaseService<UcloudRoleAction> 
      * @return
      */
     int deleteByRoleIdList(List<Long> roleIdList);
+
+    /**
+     * 根据角色Id查询该角色已经绑定的权限
+     * @param roleId
+     * @return
+     */
+    List<UcloudRoleAction> listByRoleId(Long roleId);
+
+    /**
+     * 角色绑定权限
+     * @param roleId
+     * @param actionIdList
+     */
+    void insert(Long roleId, Set<Long> actionIdList);
 }

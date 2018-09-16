@@ -91,4 +91,11 @@ public interface UcloudActionMapper extends MyMapper<UcloudAction> {
      * @return
      */
     List<UcloudAction> listActionList(@Param("menuList") List<UcloudMenu> menuList);
+
+    /**
+     * 根据菜单查询权限列表
+     * @param menuId
+     * @return
+     */
+    List<UcloudAction> findActionListByMenuId(@Param("menuId")Long menuId);
 }

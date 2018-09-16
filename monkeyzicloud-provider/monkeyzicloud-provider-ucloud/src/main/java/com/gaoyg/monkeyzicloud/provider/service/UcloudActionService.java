@@ -34,4 +34,18 @@ public interface UcloudActionService  extends IBaseService<UcloudAction> {
      * @return
      */
     List<Long> getCheckedMenuList(Long roleId);
+
+    /**
+     * 根据菜单Id查询权限列表
+     * @param menuId
+     * @return
+     */
+    List<UcloudAction> findActionListByMenuId(Long menuId);
+
+    /**
+     * 根据菜单Id删除菜单
+     * @param menuId
+     * @return
+     */
+    int deleteByMenuId(Long menuId);
 }

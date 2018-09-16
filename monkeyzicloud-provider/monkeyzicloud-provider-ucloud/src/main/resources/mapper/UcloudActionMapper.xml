@@ -133,7 +133,11 @@
         delete from ucloud_action
         where menu_id = #{menuId}
     </delete>
-
+    <!--根据菜单Id查找-->
+    <select id="findActionListByMenuId" parameterType="map" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from ucloud_action
+        where menu_id=#{menuId}
+    </select>
 
     <select id="findActionCodeListByUserId" resultType="java.lang.String">
         SELECT

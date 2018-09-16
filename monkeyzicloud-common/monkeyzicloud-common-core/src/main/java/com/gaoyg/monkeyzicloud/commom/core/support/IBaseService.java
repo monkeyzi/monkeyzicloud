@@ -76,4 +76,11 @@ public interface IBaseService<T> {
 
 
     int selectCountByExample(Object example);
+
+    /**
+     * 删除
+     * @param record
+     * @return
+     */
+    int delete(T record);
 }

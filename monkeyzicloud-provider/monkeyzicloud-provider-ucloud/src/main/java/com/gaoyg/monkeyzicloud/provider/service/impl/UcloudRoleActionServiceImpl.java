@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author: 高yg
@@ -40,5 +41,29 @@ public class UcloudRoleActionServiceImpl extends BaseService<UcloudRoleAction>  
     @Override
     public int deleteByRoleIdList(List<Long> roleIdList) {
         return roleActionMapper.deleteByRoleIdList(roleIdList);
+    }
+
+    @Override
+    @Transactional(readOnly = true,rollbackFor = Exception.class)
+    public List<UcloudRoleAction> listByRoleId(Long roleId) {
+        if (roleId == null) {
+            throw new UcloudBizException(ErrorCodeEnum.UCLOUD10012001);
+        }
+        UcloudRoleAction roleAction = new UcloudRoleAction();
+        roleAction.setRoleId(roleId);
+        return roleActionMapper.select(roleAction);
+    }
+
+    @Override
+    public void insert(Long roleId, Set<Long> actionIdList) {
+        if (roleId == null) {
+            throw new UcloudBizException(ErrorCodeEnum.UCLOUD10012001);
+        }
+        UcloudRoleAction uacRoleAction = new UcloudRoleAction();
+        uacRoleAction.setRoleId(roleId);
+        for (Long actionId : actionIdList) {
+            uacRoleAction.setActionId(actionId);
+            roleActionMapper.insert(uacRoleAction);
+        }
     }
 }

@@ -5,6 +5,8 @@ import com.gaoyg.monkeyzicloud.dto.LoginAuthDto;
 import com.gaoyg.monkeyzicloud.provider.model.domain.UcloudRole;
 import com.gaoyg.monkeyzicloud.provider.model.domain.UcloudUser;
 import com.gaoyg.monkeyzicloud.provider.model.dto.UserRole.RoleBindUserDto;
+import com.gaoyg.monkeyzicloud.provider.model.dto.role.RoleBindActionDto;
+import com.gaoyg.monkeyzicloud.provider.model.dto.role.RoleBindMenuDto;
 import com.gaoyg.monkeyzicloud.provider.model.dto.role.RoleBindUserReqDto;
 import com.gaoyg.monkeyzicloud.provider.model.vo.RoleVo;
 import com.gaoyg.monkeyzicloud.provider.model.vo.role.BindAuthVo;
@@ -84,4 +86,16 @@ public interface UcloudRoleService extends IBaseService<UcloudRole> {
      * @return
      */
     RoleBindUserDto getRoleBindUserDto(Long roleId, Long currentUserId);
+
+    /**
+     * 角色绑定权限
+     * @param grantAuthRole
+     */
+    void bindAction(RoleBindActionDto grantAuthRole);
+
+    /**
+     * 角色绑定菜单
+     * @param roleBindMenuDto
+     */
+    void bindMenu(RoleBindMenuDto roleBindMenuDto);
 }

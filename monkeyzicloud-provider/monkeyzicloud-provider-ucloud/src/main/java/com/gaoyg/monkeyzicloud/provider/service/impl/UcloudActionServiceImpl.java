@@ -48,4 +48,21 @@ public class UcloudActionServiceImpl extends BaseService<UcloudAction> implement
         }
         return ucloudActionMapper.getCheckedMenuList(roleId);
     }
+
+    @Override
+    @Transactional(readOnly = true, rollbackFor = Exception.class)
+    public List<UcloudAction> findActionListByMenuId(Long menuId) {
+        if (menuId==null){
+            throw new UcloudBizException(ErrorCodeEnum.UCLOUD10014001,menuId);
+        }
+        return ucloudActionMapper.findActionListByMenuId(menuId);
+    }
+
+    @Override
+    public int deleteByMenuId(Long menuId) {
+        if (menuId==null){
+            throw new UcloudBizException(ErrorCodeEnum.UCLOUD10014001,menuId);
+        }
+        return ucloudActionMapper.deleteByMenuId(menuId);
+    }
 }

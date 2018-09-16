@@ -47,7 +47,7 @@ public class UcloudWebMvcConfig  implements WebMvcConfigurer {
                   .addPathPatterns("/**")
                   //将静态资源以及不需要拦截的请求放行
                   .excludePathPatterns("/swagger-resources/**","/webjars/**", "*.js", "/**/*.js","*.woff","/**/*.woff","*.woff2","/**/*.woff2",
-                          "*.css", "/**/*.css", "*.html", "/**/*.html");
+                          "*.css", "/**/*.css", "*.html", "/**/*.html","*.png","/**/*.png");
     }
 
     /**

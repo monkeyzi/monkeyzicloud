@@ -49,4 +49,11 @@ public interface UcloudMenuMapper extends MyMapper<UcloudMenu> {
      * @return the list
      */
     List<UcloudMenu> listMenuListByRoleId(@Param("roleId") Long roleId);
+
+    /**
+     * 根据pid查询子菜单的数量
+     * @param pid
+     * @return
+     */
+    int selectMenuChildCountByPid(Long pid);
 }

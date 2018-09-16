@@ -30,7 +30,7 @@ public class UcloudResourceServerConfig extends ResourceServerConfigurerAdapter 
 
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 .antMatchers("/swagger-resources/**", "*.js", "/**/*.js",
-                        "*.css", "/**/*.css","/auth/**", "/v2/api-docs","*.html", "/**/*.html").permitAll()
+                        "*.css", "/**/*.css","/auth/**", "/v2/api-docs","*.html", "/**/*.html","/webjars/**").permitAll()
 
                 .anyRequest().authenticated()
                 .and().httpBasic()
