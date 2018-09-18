@@ -65,7 +65,10 @@ public enum  ErrorCodeEnum {
     /**
      * 权限
      */
-    UCLOUD10015001(10015001, "权限不存在,id=%s");
+    UCLOUD10015001(10015001, "权限不存在,id=%s"),
+    UCLOUD10015002(10015002, "找不到权限信息, actionId=%s"),
+    UCLOUD10015003(10015003, "删除失败, actionId=%s"),
+    UCLOUD10015004(10015004, "删除权限Id不能为空");
 
     private String msg;
     private Integer code;

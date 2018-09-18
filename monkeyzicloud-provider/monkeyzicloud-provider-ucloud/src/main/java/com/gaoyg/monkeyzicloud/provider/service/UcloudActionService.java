@@ -3,6 +3,8 @@ package com.gaoyg.monkeyzicloud.provider.service;
 import com.gaoyg.monkeyzicloud.commom.core.support.IBaseService;
 import com.gaoyg.monkeyzicloud.provider.model.domain.UcloudAction;
 import com.gaoyg.monkeyzicloud.provider.model.domain.UcloudMenu;
+import com.gaoyg.monkeyzicloud.provider.model.dto.action.ActionMainQueryDto;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -43,9 +45,29 @@ public interface UcloudActionService  extends IBaseService<UcloudAction> {
     List<UcloudAction> findActionListByMenuId(Long menuId);
 
     /**
-     * 根据菜单Id删除菜单
+     * 根据菜单Id删除权限
      * @param menuId
      * @return
      */
     int deleteByMenuId(Long menuId);
+
+    /**
+     * 分页查询权限
+     * @param actionMainQueryDto
+     * @return
+     */
+    PageInfo queryActionListWithPage(ActionMainQueryDto actionMainQueryDto);
+
+    /**
+     * 删除权限
+     * @param actionId
+     * @return
+     */
+    int deleteActionById(Long actionId);
+
+    /**
+     * 批量删除权限
+     * @param deleteIdList
+     */
+    void batchDeleteByIdList(List<Long> deleteIdList);
 }
