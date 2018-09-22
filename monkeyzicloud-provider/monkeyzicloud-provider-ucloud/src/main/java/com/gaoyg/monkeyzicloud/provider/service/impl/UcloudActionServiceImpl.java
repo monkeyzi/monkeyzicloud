@@ -2,6 +2,7 @@ package com.gaoyg.monkeyzicloud.provider.service.impl;
 
 import com.gaoyg.monkeyzicloud.commom.core.support.BaseService;
 import com.gaoyg.monkeyzicloud.constant.GlobalConstant;
+import com.gaoyg.monkeyzicloud.dto.LoginAuthDto;
 import com.gaoyg.monkeyzicloud.enums.ErrorCodeEnum;
 import com.gaoyg.monkeyzicloud.provider.exception.UcloudBizException;
 import com.gaoyg.monkeyzicloud.provider.mapper.UcloudActionMapper;
@@ -124,6 +125,26 @@ public class UcloudActionServiceImpl extends BaseService<UcloudAction> implement
         if (result < deleteIdList.size()) {
             throw new UcloudBizException(ErrorCodeEnum.UCLOUD10015003,
                     Joiner.on(GlobalConstant.Symbol.COMMA).join(deleteIdList));
+        }
+    }
+
+    @Override
+    public void saveAction(UcloudAction action, LoginAuthDto loginAuthDto) {
+        List<Long> menuIdList = action.getMenuIdList();
+        Long menuId;
+        Preconditions.checkArgument(PublicUtil.isNotEmpty(menuIdList), "菜单名称不能为空");
+        menuId = menuIdList.get(menuIdList.size() - 1);
+        action.setMenuId(menuId);
+        action.setUpdateInfo(loginAuthDto);
+        if (action.isNew()) {
+            Long actionId = 1L;
+            action.setId(actionId);
+            ucloudActionMapper.insertSelective(action);
+        } else {
+            int result = ucloudActionMapper.updateByPrimaryKeySelective(action);
+            if (result < 1) {
+                throw new UcloudBizException(ErrorCodeEnum.UCLOUD10015005);
+            }
         }
     }
 }

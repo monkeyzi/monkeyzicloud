@@ -53,7 +53,7 @@ public interface UcloudGroupUserMapper extends MyMapper<UcloudGroupUser> {
      *
      * @return the list
      */
-    List<UcloudGroup> listByGroupId(@Param("groupId") Long groupId);
+    List<UcloudGroupUser> listByGroupId(@Param("groupId") Long groupId);
 
     /**
      * Delete exclude super mng int.

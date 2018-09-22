@@ -1,6 +1,7 @@
 package com.gaoyg.monkeyzicloud.provider.service;
 
 import com.gaoyg.monkeyzicloud.commom.core.support.IBaseService;
+import com.gaoyg.monkeyzicloud.dto.LoginAuthDto;
 import com.gaoyg.monkeyzicloud.provider.model.domain.UcloudAction;
 import com.gaoyg.monkeyzicloud.provider.model.domain.UcloudMenu;
 import com.gaoyg.monkeyzicloud.provider.model.dto.action.ActionMainQueryDto;
@@ -70,4 +71,11 @@ public interface UcloudActionService  extends IBaseService<UcloudAction> {
      * @param deleteIdList
      */
     void batchDeleteByIdList(List<Long> deleteIdList);
+
+    /**
+     * 新增或者修改权限
+     * @param action
+     * @param loginAuthDto
+     */
+    void saveAction(UcloudAction action, LoginAuthDto loginAuthDto);
 }
