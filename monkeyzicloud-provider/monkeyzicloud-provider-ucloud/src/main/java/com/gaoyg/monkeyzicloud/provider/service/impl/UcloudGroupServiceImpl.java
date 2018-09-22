@@ -397,7 +397,6 @@ public class UcloudGroupServiceImpl extends BaseService implements UcloudGroupSe
         vo.setLeaf(group.getLevel());
         vo.setLevel(group.getLevel());
         vo.setGroupCode(group.getGroupCode());
-
         vo.setContact(group.getContact());
         vo.setContactPhone(group.getContactPhone());
         vo.setCreatedTime(group.getCreatedTime() == null ? new Date() : group.getCreatedTime());
@@ -407,7 +406,12 @@ public class UcloudGroupServiceImpl extends BaseService implements UcloudGroupSe
         return vo;
     }
 
-
+    /**
+     * 组装组织树
+     * @param childUcloudGroupList
+     * @param currentGroupId
+     * @return
+     */
     private List<MenuVo> buildGroupTree(List<GroupZtreeVo> childUcloudGroupList, Long currentGroupId) {
         List<MenuVo> listVo = Lists.newArrayList();
         MenuVo menuVo;
