@@ -1,6 +1,5 @@
 package com.gaoyg.monkeyzicloud.gateway.exception;
 
-import com.gaoyg.monkeyzicloud.enums.ErrorCodeEnum;
 import com.gaoyg.monkeyzicloud.exception.BusinessException;
 import com.gaoyg.monkeyzicloud.util.response.R;
 import com.netflix.zuul.exception.ZuulException;

@@ -15,6 +15,7 @@
         <module>monkeyzicloud-provider-api</module>
         <module>monkeyzicloud-provider</module>
         <module>monkeyzicloud-discovery</module>
+        <module>monkeyzicloud-generator</module>
     </modules>
     
     <parent>
