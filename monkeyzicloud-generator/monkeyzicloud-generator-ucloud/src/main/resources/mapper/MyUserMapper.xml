@@ -484,7 +484,11 @@
     </if>
   </select>
   <select id="selectBeans" parameterType="java.util.Map" resultMap="BaseResultMap" >
-    select id, version, login_name, login_pwd, user_code, user_name, mobile_no, email, status, user_source, type, last_login_ip, last_login_location, remark, last_login_time, is_changed_pwd, pwd_error_count, pwd_error_time, creator, creator_id, created_time, last_operator, last_operator_id, update_time, account_non_expired, enabled, account_non_locked, credentials_non_expired from ucloud_user
+    select id, version, login_name, login_pwd, user_code, user_name, mobile_no,
+    email, status, user_source, type, last_login_ip, last_login_location, remark,
+    last_login_time, is_changed_pwd, pwd_error_count, pwd_error_time,
+    creator, creator_id, created_time, last_operator, last_operator_id,
+    update_time, account_non_expired, enabled, account_non_locked, credentials_non_expired from ucloud_user
     <if test="_parameter != null" >
       <where >
         <if test="id != null" >

@@ -11,7 +11,7 @@
 
     <artifactId>monkeyzicloud-generator-ucloud</artifactId>
     <packaging>jar</packaging>
-
+    <description>mybatis代码生成器 ucloud部分</description>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.version>5.0.7.RELEASE</spring.version>

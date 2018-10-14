@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import tk.mybatis.mapper.common.Mapper;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -14,9 +15,9 @@ import java.util.List;
  * @description:
  */
 @Slf4j
-public class BaseService<T> implements IBaseService<T> {
+public abstract class BaseService<T> implements IBaseService<T> {
 
-    @Autowired(required = false)
+    @Autowired
     protected Mapper<T> mapper;
     /**
      * Gets mapper.

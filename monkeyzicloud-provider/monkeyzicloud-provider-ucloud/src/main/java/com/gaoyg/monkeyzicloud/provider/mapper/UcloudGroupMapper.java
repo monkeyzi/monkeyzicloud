@@ -5,6 +5,8 @@ import com.gaoyg.monkeyzicloud.provider.model.domain.UcloudGroup;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * @author: 高yg
  * @date: 2018/9/18 21:50
@@ -15,4 +17,5 @@ import org.springframework.stereotype.Component;
 @Component
 @Mapper
 public interface UcloudGroupMapper extends MyMapper<UcloudGroup> {
+    List<UcloudGroup> selectListBy();
 }

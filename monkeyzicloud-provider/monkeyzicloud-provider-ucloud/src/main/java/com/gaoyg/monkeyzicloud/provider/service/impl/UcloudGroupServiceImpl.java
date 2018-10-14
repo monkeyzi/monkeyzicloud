@@ -45,7 +45,7 @@ import java.util.*;
 @Service
 @Slf4j
 @Transactional(rollbackFor = Exception.class)
-public class UcloudGroupServiceImpl extends BaseService implements UcloudGroupService {
+public class UcloudGroupServiceImpl extends BaseService<UcloudGroup> implements UcloudGroupService {
     @Resource
     private UcloudGroupMapper ucloudGroupMapper;
     @Resource

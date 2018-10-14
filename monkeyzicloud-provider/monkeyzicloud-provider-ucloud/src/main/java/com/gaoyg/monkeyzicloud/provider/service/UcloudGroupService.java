@@ -18,7 +18,7 @@ import java.util.List;
  * @blog http://www.monkeyzi.xin
  * @description:
  */
-public interface UcloudGroupService extends IBaseService {
+public interface UcloudGroupService extends IBaseService<UcloudGroup> {
     /**
      * 根据用户Id获取用户的组织树
      * @param userId
