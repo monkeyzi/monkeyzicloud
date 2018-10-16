@@ -71,7 +71,6 @@ public class LogAspect {
         String requestURI = request.getRequestURI();
         try {
             LogAnnotation logF=giveController(joinPoint);
-            // LoginAuthDto loginUser=RequestUtils.getLoginUser();
             LoginAuthDto loginUser=new LoginAuthDto();
             if (loginUser==null){
                 log.error("获取登录用户信息异常");
@@ -151,11 +150,8 @@ public class LogAspect {
             }
             Object[] parameter = new Object[args.length];
             int index = 0;
-            for (Object object : parameter) {
-                if (object instanceof HttpServletRequest) {
-                    continue;
-                }
-                parameter[index] = object;
+            for (Object o:args){
+                parameter[index] = o;
                 index++;
             }
 
